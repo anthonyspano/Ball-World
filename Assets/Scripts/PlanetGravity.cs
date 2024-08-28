@@ -11,11 +11,7 @@ public class PlanetGravity : MonoBehaviour
 
     public void AddGravityForce(Rigidbody attractor, Rigidbody target)
     {
-        //Debug.Log(attractor);
-        //Debug.Log(target);
-
         float massProduct = attractor.mass * target.mass * G;
-        //Debug.Log(massProduct);
 
         Vector3 difference = attractor.position - target.position;
         float distance = difference.magnitude;
@@ -24,12 +20,9 @@ public class PlanetGravity : MonoBehaviour
         float forceMagnitude = G * unscaledForceMagnitue;
 
         Vector3 forceDirection = difference.normalized;
-        Debug.Log(forceDirection);
-        Debug.Log(forceMagnitude);
 
         Vector3 forceVector = forceDirection * forceMagnitude;
         target.AddForce(forceVector);
-        //Debug.Log(forceVector);
 
     }
 
