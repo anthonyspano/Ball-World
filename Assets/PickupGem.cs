@@ -6,7 +6,12 @@ using UnityEngine.UI;
 public class PickupGem : MonoBehaviour
 {
     public Text counterUI;
-    private int CoinCount = 0;
+    private int gemCount = 0;
+    public int GemCount
+    {
+        get{ return gemCount; }
+        set{ gemCount = value; }
+    }
     
     public AudioClip pickupSound;
 
@@ -21,8 +26,8 @@ public class PickupGem : MonoBehaviour
             StartCoroutine(SpinGemIcon());
 
             // add to ui counter
-            CoinCount += 1;
-            counterUI.text = CoinCount.ToString();
+            GemCount += 1;
+            counterUI.text = GemCount.ToString();
 
             // add to player gui
             Destroy(col.gameObject);

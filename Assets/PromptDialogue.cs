@@ -5,16 +5,13 @@ using UnityEngine.UI;
 
 public class PromptDialogue : MonoBehaviour
 {
-    public GameObject dialogueBox;
+    public Text dialogueContent;
 
-    void Update()
+    private GameObject player;
+
+    private void Start()
     {
-        if(Input.GetKeyDown(KeyCode.K))
-        {
-            bool b = dialogueBox.activeSelf;
-            dialogueBox.SetActive(!b);
-            //dialogueBox.enabled = !dialogueBox.enabled;
-        }
+        player = GameObject.Find("Player");
     }
 
     void OnTriggerEnter(Collider col)
@@ -22,11 +19,31 @@ public class PromptDialogue : MonoBehaviour
         
         if(col.gameObject.CompareTag("Player"))
         {
-            Debug.Log("zzz");
-            
-            // display dialogue box
-            //dialogueBox.enabled = true;
-            dialogueBox.SetActive(true);
+
+            StartCoroutine(BeginQuest());
         }
+    }
+
+    private IEnumerator BeginQuest()
+    {
+        // well hello little ball
+        dialogueContent.text = "Well, look at what we have here!";
+
+        yield return new WaitUntil(() => Input.GetKeyDown(KeyCode.Return));
+
+        dialogueContent.text = "It seems you are in a bit of a predicament. Perhaps one that both of us can benefit from.";
+
+        yield return null;
+
+        yield return new WaitUntil(() => Input.GetKeyDown(KeyCode.Return));
+
+        dialogueContent.text = "If you collect all of the gems on this planet, I will fly you out. Deal?";
+
+        yield return null;
+
+        yield return new WaitUntil(() => Input.GetKeyDown(KeyCode.Return));
+
+        dialogueContent.text = "";
+
     }
 }

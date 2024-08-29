@@ -4,5 +4,14 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    //public static int CoinCount = 0;
+    // in-game menu
+    public GameObject mainMenu;
+
+    void Update()
+    {
+        if(Input.GetKeyDown(KeyCode.Escape))
+        {
+            mainMenu.SetActive(true);
+        }
+    }
 }
