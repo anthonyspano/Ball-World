@@ -7,11 +7,11 @@ public class PromptDialogue : MonoBehaviour
 {
     public Text dialogueContent;
 
-    private GameObject player;
+    private PickupGem gems;
 
     private void Start()
     {
-        player = GameObject.Find("Player");
+        gems = GameObject.Find("Player").GetComponent<PickupGem>();
     }
 
     void OnTriggerEnter(Collider col)
@@ -19,14 +19,16 @@ public class PromptDialogue : MonoBehaviour
         
         if(col.gameObject.CompareTag("Player"))
         {
-
-            StartCoroutine(BeginQuest());
+            if(gems.GemCount < gems.MaxGemCount)
+                StartCoroutine(BeginQuest());
+            else
+                StartCoroutine(EndQuest());
         }
     }
 
     private IEnumerator BeginQuest()
     {
-        // well hello little ball
+
         dialogueContent.text = "Well, look at what we have here!";
 
         yield return new WaitUntil(() => Input.GetKeyDown(KeyCode.Return));
@@ -37,13 +39,36 @@ public class PromptDialogue : MonoBehaviour
 
         yield return new WaitUntil(() => Input.GetKeyDown(KeyCode.Return));
 
-        dialogueContent.text = "If you collect all of the gems on this planet, I will fly you out. Deal?";
+        dialogueContent.text = "If you collect all X of the gems on this planet, I will fly you out. Deal?";
 
         yield return null;
 
         yield return new WaitUntil(() => Input.GetKeyDown(KeyCode.Return));
 
         dialogueContent.text = "";
+
+    }
+
+    private IEnumerator EndQuest()
+    {
+        dialogueContent.text = "Well I'll be a monkey's uncle... You did it!";
+
+        yield return null;
+
+        yield return new WaitUntil(() => Input.GetKeyDown(KeyCode.Return));
+
+        dialogueContent.text = "Hop on my back and i'll take you out of here.";
+
+
+        yield return null;
+
+        yield return new WaitUntil(() => Input.GetKeyDown(KeyCode.Return));
+
+        dialogueContent.text = "";
+
+        // flies away
+
+        
 
     }
 }

@@ -12,6 +12,8 @@ public class PickupGem : MonoBehaviour
         get{ return gemCount; }
         set{ gemCount = value; }
     }
+
+    public int MaxGemCount;
     
     public AudioClip pickupSound;
 
