@@ -87,6 +87,7 @@ public class PromptDialogue : MonoBehaviour
 
         // disable gravity
         gravityWell.GetComponent<PlanetGravity>().enabled = false;
+        gravityWell.gameObject.SetActive(false);
         Physics.gravity = Vector3.zero;
 
         // make player child of dragon
@@ -100,8 +101,15 @@ public class PromptDialogue : MonoBehaviour
 
         // have dragon move for a few seconds
         anim.Play("Flying Loop");
+        float i = 3f;
+        while(i > 0)
+        {
+            transform.Translate(Vector3.forward * Time.deltaTime * 5f);
+            i -= Time.deltaTime;
+            yield return null;
+        }
 
-        yield return new WaitForSeconds(4f);
+        //yield return new WaitForSeconds(4f);
 
         // end the game
         SceneManager.LoadScene("SampleScene");
